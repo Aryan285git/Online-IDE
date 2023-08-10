@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <title>
+            Online IDE
+        </title>
+    </head>
+        <body>
+            <center>
+                <h1>Online IDE</h1>
+                <form id="myform" name="myform" method="post" action="compilecode">
+                    <h2>Code</h2>
+                    <textarea rows="13" cols="100" id="code" name="code"></textarea>
+                    <br/>
+                    <h3>Input</h3>
+                    <textarea rows="16" cols="100" id="input" name="input"></textarea>
+                    <br/>
+                    Language: <select name="lang">
+                        <option value="C">C</option>
+                        <option value="C">C++</option>
+                        <option value="Java">Java</option>
+                        <option value="Python"> Python</option>
+                        </select>
+                        Compile With Input:
+                        <input type="radio" name="inputRadio" id="inputRadio" value="true"/>Yes
+                        <input type="radio" name="inputRadio" id="inputRadio" value="false"/>No
+                        <br />
+                        <input type="submit" value="submit" name="submit" />
+                </form>
+            </center>
+        </body>
+</html>
