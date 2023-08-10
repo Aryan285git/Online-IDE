@@ -16,8 +16,9 @@ res.sendfile(__dirname + "/index.html");
         var code= req.body.code;
         var input=req.body.input; 
         var inputRadio = req.body.inputRadio;
-        var lang = req.body.lang; 
-        if (lang === "C" || lang ==="C++") {
+        var language = req.body.language; 
+        
+        if (language === "c" || language ==="cpp") {
         if (inputRadio === "true") {
         var envData = { OS: "windows", cmd: "g++", options: {timeout: 10000 }  };
         compiler.compileCPPWithInput (envData, code, input, function (data){
@@ -36,7 +37,7 @@ res.sendfile(__dirname + "/index.html");
             });
         }
     }
-    if (lang === "Python") {
+    if (language === "py") {
         if (inputRadio === "true") {
         var envData = { OS: "windows" };
         compiler.compilePythonWithInput (envData, code, input, function (data) {
@@ -50,6 +51,34 @@ res.sendfile(__dirname + "/index.html");
         });
         }
     }
+    if (language === "java") {
+        if (inputRadio === "true") {
+            var envData = { OS : "windows"}; 
+            compiler.compileJavaWithInput( envData , code , input ,  function(data){
+            res.send(data);
+        });
+        } 
+        else {
+            var envData = { OS : "windows" };
+            compiler.compileJava( envData , code , function(data){
+                res.send(data);
+            });
+        }
+    }
+});
+app.post('/download', (req, res) => {
+    const code = req.body.code;
+    const selectedLanguage = req.body.language;
+
+    const fileName = `code.${selectedLanguage}`;
+    fs.writeFileSync(fileName, code);
+
+    res.download(fileName, (err) => {
+        if (err) {
+            console.error(err);
+        }
+        fs.unlinkSync(fileName);
+    });
 });
 app.get("/fullStat", function (_req, res) { 
     compiler.fullStat (function (data) {
